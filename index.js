@@ -50,7 +50,17 @@ app.get("/users", function (req, res) {
   try {
     const decode = jwt.verify(token, jwtPassword);
     const username = decode.username;
-    res.json({ users: users });
+    res.json({ users: users.filter(function(value)
+                                   {
+                                     if(value.username === username)
+                                     {
+                                       return false;
+                                     }
+                                     else
+                                     {
+                                       return true;
+                                     }
+                                   })});
   } catch (err) {
     return res.status(403).json({ msg: "unauthorized user" });
   }
