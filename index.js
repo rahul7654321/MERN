@@ -3,6 +3,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const jwtPassword = "123456";
 
+
 const app = express();
 
 app.use(express.json());
@@ -50,7 +51,7 @@ app.get("/users", function (req, res) {
   try {
     const decode = jwt.verify(token, jwtPassword);
     const username = decode.username;
-    const user = users.find((user) => user.username === username);
+    res.json({ users:users});
   } catch (err) {
     return res.status(403).json({ msg: "unauthorized user" });
   }
